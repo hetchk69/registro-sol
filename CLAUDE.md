@@ -39,16 +39,21 @@ que ve y gestiona todo. Sitio estático sin build: HTML + CSS + JS plano, `supab
 
 ```
 index.html            shell de las 5 pantallas (login, inicio, formulario, confirmación, admin)
+registro.html          formulario público de registro de colaboradores (sin login; anon solo inserta)
 css/styles.css         diseño móvil primero
 js/config.js           SUPABASE_URL y SUPABASE_ANON_KEY (públicas, van en el repo)
 js/supabase.js         crea el cliente supabase-js
 js/auth.js             login teléfono+contraseña (vía email falso), sesión, logout
 js/form.js              carga de preguntas por rol, autoguardado, envío
 js/admin.js             lista de usuarios, detalle, alta, reabrir, export CSV
+js/admin-colaboradores.js  pestaña "Colaboradores" del admin: lista, búsqueda y CSV
+js/registro.js          catálogos, validación y envío del registro de colaboradores
 js/router.js            decide qué pantalla mostrar según sesión y rol
-supabase/migrations/    001_schema, 002_functions_triggers, 003_rls (en ese orden)
-supabase/seed/          locations, allowed_users (ejemplo), questions
+supabase/migrations/    001_schema, 002_functions_triggers, 003_rls, 004_add_role_gerencia,
+                        005_colaboradores (en ese orden)
+supabase/seed/          locations, allowed_users (ejemplo), questions, hn_geografia
 tests/rls.md            casos de prueba de permisos (sección 8 de SPEC.md)
+tests/colaboradores_rls.sql  pruebas autoverificables de RLS de colaboradores (rollback, no deja datos)
 ```
 
 ## Orden de trabajo
