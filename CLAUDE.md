@@ -46,11 +46,15 @@ js/supabase.js         crea el cliente supabase-js
 js/auth.js             login teléfono+contraseña (vía email falso), sesión, logout
 js/form.js              carga de preguntas por rol, autoguardado, envío
 js/admin.js             lista de usuarios, detalle, alta, reabrir, export CSV
-js/admin-colaboradores.js  pestaña "Colaboradores" del admin: lista, búsqueda y CSV
-js/registro.js          catálogos, validación y envío del registro de colaboradores
+js/admin-colaboradores.js  pestaña "Colaboradores" del admin: lista, búsqueda, filtro por
+                        institución y CSV
+js/admin-instituciones.js  pestaña "Instituciones" del admin: catálogo, alta, link de
+                        registro por institución (?institucion=<slug>) y borrado
+js/registro.js          catálogos, resolución de institución por slug, validación y envío
+                        del registro de colaboradores
 js/router.js            decide qué pantalla mostrar según sesión y rol
 supabase/migrations/    001_schema, 002_functions_triggers, 003_rls, 004_add_role_gerencia,
-                        005_colaboradores (en ese orden)
+                        005_colaboradores, 006_instituciones (en ese orden)
 supabase/seed/          locations, allowed_users (ejemplo), questions, hn_geografia
 tests/rls.md            casos de prueba de permisos (sección 8 de SPEC.md)
 tests/colaboradores_rls.sql  pruebas autoverificables de RLS de colaboradores (rollback, no deja datos)
