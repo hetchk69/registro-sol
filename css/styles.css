@@ -43,6 +43,18 @@
   background: linear-gradient(90deg, #0a51bd, #fe6603);
 }
 
+/* Registro de colaboradores: paleta del manual de marca de DIGER, en vez
+   del rojo de Cerámicas del Valle. Solo afecta registro.html (estas tres
+   pantallas): el resto del sitio conserva su paleta de siempre. */
+#screen-registro,
+#screen-gracias,
+#screen-registro-invalido {
+  --color-primary: #1a65a3;
+  --color-primary-dark: #02395e;
+  --color-primary-light: #7acbdd;
+  --color-primary-bg: #e8f0f6;
+}
+
 * {
   box-sizing: border-box;
 }
