@@ -43,6 +43,15 @@
   background: linear-gradient(90deg, #0a51bd, #fe6603);
 }
 
+/* Administración: paleta neutra (gris/negro) en vez del rojo de Cerámicas
+   del Valle, para distinguirla de las pantallas de los colaboradores. */
+#screen-admin {
+  --color-primary: #3a3a3a;
+  --color-primary-dark: #1a1a1a;
+  --color-primary-light: #c9c9c9;
+  --color-primary-bg: #f0f0f0;
+}
+
 /* Registro de colaboradores: paleta del manual de marca de DIGER, en vez
    del rojo de Cerámicas del Valle. Solo afecta registro.html (estas tres
    pantallas): el resto del sitio conserva su paleta de siempre. */
@@ -130,6 +139,12 @@ h1, h2, .brand-name {
 
 .card-wide {
   max-width: 760px;
+}
+
+/* La administración tiene tablas con muchas columnas (colaboradores,
+   instituciones): necesita más ancho que el resto de las pantallas. */
+#screen-admin .card-wide {
+  max-width: 1100px;
 }
 
 @keyframes card-in {
