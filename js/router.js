@@ -140,6 +140,43 @@ const Router = (() => {
     document.getElementById('admin-filter-location').addEventListener('change', () => AdminScreen.render());
     document.getElementById('admin-export-csv').addEventListener('click', () => AdminScreen.exportCsv());
 
+    const tabs = {
+      levantamiento: {
+        btn: document.getElementById('admin-tab-levantamiento'),
+        panel: document.getElementById('admin-panel-levantamiento'),
+      },
+      colaboradores: {
+        btn: document.getElementById('admin-tab-colaboradores'),
+        panel: document.getElementById('admin-panel-colaboradores'),
+      },
+      instituciones: {
+        btn: document.getElementById('admin-tab-instituciones'),
+        panel: document.getElementById('admin-panel-instituciones'),
+      },
+    };
+    function selectTab(which) {
+      for (const [name, t] of Object.entries(tabs)) {
+        t.btn.classList.toggle('active', name === which);
+        t.panel.classList.toggle('hidden', name !== which);
+      }
+    }
+    tabs.levantamiento.btn.addEventListener('click', () => selectTab('levantamiento'));
+    tabs.colaboradores.btn.addEventListener('click', async () => {
+      selectTab('colaboradores');
+      await AdminInstituciones.load();
+      await AdminColaboradores.load();
+    });
+    tabs.instituciones.btn.addEventListener('click', async () => {
+      selectTab('instituciones');
+      await AdminInstituciones.load();
+    });
+    document.getElementById('colab-search').addEventListener('input', () => AdminColaboradores.render());
+    document
+      .getElementById('colab-filter-institucion')
+      .addEventListener('change', () => AdminColaboradores.render());
+    document.getElementById('colab-export-csv').addEventListener('click', () => AdminColaboradores.exportCsv());
+    AdminInstituciones.wireForm();
+
     document.getElementById('admin-add-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const ok = await AdminScreen.addUser({

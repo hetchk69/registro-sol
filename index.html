@@ -93,6 +93,13 @@
       <button id="admin-logout" class="btn-link">Cerrar sesión</button>
     </div>
 
+    <div class="admin-tabs">
+      <button id="admin-tab-levantamiento" type="button" class="admin-tab active">Levantamiento</button>
+      <button id="admin-tab-colaboradores" type="button" class="admin-tab">Colaboradores</button>
+      <button id="admin-tab-instituciones" type="button" class="admin-tab">Instituciones</button>
+    </div>
+
+    <div id="admin-panel-levantamiento">
     <div class="admin-filters">
       <select id="admin-filter-role">
         <option value="">Todos los roles</option>
@@ -137,6 +144,52 @@
       <button type="submit" class="btn-primary">Agregar</button>
       <p id="admin-add-error" class="error-text"></p>
     </form>
+    </div>
+
+    <div id="admin-panel-colaboradores" class="hidden">
+      <div class="admin-filters">
+        <input id="colab-search" type="search" placeholder="Buscar por nombre, documento, correo, cargo o institución" />
+        <select id="colab-filter-institucion"><option value="">Todas las instituciones</option></select>
+        <button id="colab-export-csv" type="button" class="btn-secondary">Exportar CSV</button>
+      </div>
+      <p id="colab-count" class="subtitle"></p>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Documento</th>
+            <th>Cargo</th>
+            <th>Institución</th>
+            <th>Contacto</th>
+            <th>Ubicación</th>
+            <th>Registrado</th>
+          </tr>
+        </thead>
+        <tbody id="colab-table-body"></tbody>
+      </table>
+    </div>
+
+    <div id="admin-panel-instituciones" class="hidden">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Slug</th>
+            <th>Link de registro</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="instituciones-table-body"></tbody>
+      </table>
+
+      <h2>Agregar institución</h2>
+      <form id="instituciones-add-form" class="admin-add-form">
+        <input id="instituciones-add-nombre" type="text" placeholder="Nombre de la institución" maxlength="150" required />
+        <input id="instituciones-add-slug" type="text" placeholder="slug-para-el-link" maxlength="80" required />
+        <button type="submit" class="btn-primary">Agregar</button>
+        <p id="instituciones-add-error" class="error-text"></p>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -149,6 +202,8 @@
 <script src="js/auth.js"></script>
 <script src="js/form.js"></script>
 <script src="js/admin.js"></script>
+<script src="js/admin-colaboradores.js"></script>
+<script src="js/admin-instituciones.js"></script>
 <script src="js/router.js"></script>
 </body>
 </html>

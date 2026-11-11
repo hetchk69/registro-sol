@@ -14,6 +14,12 @@ cada teléfono) y en la app real con un usuario de cada rol antes de dar el MVP 
 | 7 | El administrador abre la vista de administración | Ve todos los usuarios, avance y respuestas | Login como admin, `screen-admin` debe listar todos los `profiles` con su `submission.status` |
 | 8 | El administrador exporta el CSV | Trae usuario, rol, ubicación, pregunta y respuesta | Descargar el CSV desde `admin-export-csv` y confirmar las columnas |
 | 9 | Un usuario no admin abre la ruta de administración | No ve nada y no puede consultar datos ajenos | Con un usuario normal, cualquier `select` directo a `allowed_users` o a `answers` de otra submission debe devolver 0 filas por RLS, aunque manipule el JS del cliente |
+| 10 | Alguien sin cuenta envía el registro público de colaboradores | Se guarda | `tests/colaboradores_rls.sql` (caso 1) y envío real desde `registro.html` |
+| 11 | Alguien sin cuenta intenta leer, editar o borrar `colaboradores` | La base lo rechaza (`permission denied`) | `tests/colaboradores_rls.sql` (caso 6) |
+| 12 | Un usuario autenticado no admin intenta leer `colaboradores` | Cero filas | Con la sesión de un Jefe de Tienda, `select * from colaboradores` devuelve 0 filas por RLS |
+| 13 | Se envía un número de documento ya registrado (aunque cambien guiones o espacios) | Se rechaza con "Este documento ya está registrado" | `tests/colaboradores_rls.sql` (caso 2) y envío real duplicado |
+| 14 | Se envía un municipio que no pertenece al departamento elegido | La base lo rechaza | `tests/colaboradores_rls.sql` (caso 3) |
+| 15 | El admin exporta el CSV de colaboradores | Trae las 18 columnas y neutraliza fórmulas (`=`, `@`) | Descargar desde la pestaña "Colaboradores" y abrir en Excel |
 
 ## Notas
 

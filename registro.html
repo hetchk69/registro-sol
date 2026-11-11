@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Registro de Usuarios para plataforma SOL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<div class="bg-shape bg-shape-1"></div>
+<div class="bg-shape bg-shape-2"></div>
+
+<section id="screen-registro" class="screen">
+  <div class="card card-wide">
+    <div class="brand-logos">
+      <img src="assets/logos/diger.png" alt="DIGER" class="brand-logo" />
+    </div>
+    <h1 class="brand-title">Registro de Usuarios para plataforma SOL</h1>
+    <p class="subtitle">Completa tus datos. Los campos con * son obligatorios.</p>
+
+    <form id="registro-form">
+      <h2 class="form-section-title">Datos personales</h2>
+      <div class="field-grid">
+        <div class="field">
+          <label for="reg-nombres">Nombres *</label>
+          <input id="reg-nombres" type="text" maxlength="100" required />
+        </div>
+        <div class="field">
+          <label for="reg-apellidos">Apellidos *</label>
+          <input id="reg-apellidos" type="text" maxlength="100" required />
+        </div>
+        <div class="field">
+          <label for="reg-tipo-doc">Tipo de documento *</label>
+          <select id="reg-tipo-doc" required>
+            <option value="Identidad">Identidad</option>
+            <option value="Pasaporte">Pasaporte</option>
+            <option value="Carnet de residente">Carnet de residente</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="reg-documento">Número de documento *</label>
+          <input id="reg-documento" type="text" maxlength="30" required />
+        </div>
+        <div class="field">
+          <label for="reg-nacimiento">Fecha de nacimiento *</label>
+          <input id="reg-nacimiento" type="date" min="1900-01-01" required />
+        </div>
+        <div class="field">
+          <label for="reg-sexo">Sexo</label>
+          <select id="reg-sexo">
+            <option value="">—</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="reg-cargo">Cargo *</label>
+          <input id="reg-cargo" type="text" maxlength="150" required />
+        </div>
+        <div class="field">
+          <label for="reg-area">Área *</label>
+          <input id="reg-area" type="text" maxlength="150" required />
+        </div>
+        <div class="field field-full">
+          <label for="reg-institucion">Institución</label>
+          <input id="reg-institucion" type="text" readonly />
+        </div>
+        <div class="field field-full">
+          <label for="reg-email">Correo electrónico *</label>
+          <input id="reg-email" type="email" maxlength="254" required />
+        </div>
+        <div class="field">
+          <label for="reg-movil">Móvil *</label>
+          <input id="reg-movil" type="tel" inputmode="tel" maxlength="25" required />
+        </div>
+        <div class="field">
+          <label for="reg-fijo">Teléfono fijo</label>
+          <input id="reg-fijo" type="tel" inputmode="tel" maxlength="25" />
+        </div>
+      </div>
+
+      <h2 class="form-section-title">Domicilio</h2>
+      <div class="field-grid">
+        <div class="field field-full">
+          <label for="reg-calle">Calle *</label>
+          <input id="reg-calle" type="text" maxlength="200" required />
+        </div>
+        <div class="field">
+          <label for="reg-departamento">Provincia (departamento) *</label>
+          <select id="reg-departamento" required></select>
+        </div>
+        <div class="field">
+          <label for="reg-municipio">Ciudad (municipio) *</label>
+          <select id="reg-municipio" required disabled></select>
+        </div>
+        <div class="field">
+          <label for="reg-barrio">Barrio *</label>
+          <input id="reg-barrio" type="text" maxlength="100" required />
+        </div>
+        <div class="field">
+          <label for="reg-postal">Código postal</label>
+          <input id="reg-postal" type="text" maxlength="15" />
+        </div>
+      </div>
+
+      <p id="registro-error" class="error-text"></p>
+      <button id="registro-submit" type="submit" class="btn-primary">Enviar registro</button>
+    </form>
+  </div>
+</section>
+
+<section id="screen-gracias" class="screen hidden">
+  <div class="card">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h1>Registro recibido</h1>
+    <p class="subtitle">Gracias, tus datos quedaron registrados. Ya puedes cerrar esta página.</p>
+  </div>
+</section>
+
+<section id="screen-registro-invalido" class="screen hidden">
+  <div class="card">
+    <h1>Enlace inválido</h1>
+    <p class="subtitle">Este enlace de registro no es válido. Contacta al administrador para que te comparta el enlace correcto.</p>
+  </div>
+</section>
+
+<footer class="app-footer">Desarrollo de Herramientas Digitales SODECO S. de R.L.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase.js"></script>
+<script src="js/registro.js"></script>
+</body>
+</html>

@@ -43,6 +43,27 @@
   background: linear-gradient(90deg, #0a51bd, #fe6603);
 }
 
+/* Administración: paleta neutra (gris/negro) en vez del rojo de Cerámicas
+   del Valle, para distinguirla de las pantallas de los colaboradores. */
+#screen-admin {
+  --color-primary: #3a3a3a;
+  --color-primary-dark: #1a1a1a;
+  --color-primary-light: #c9c9c9;
+  --color-primary-bg: #f0f0f0;
+}
+
+/* Registro de colaboradores: paleta del manual de marca de DIGER, en vez
+   del rojo de Cerámicas del Valle. Solo afecta registro.html (estas tres
+   pantallas): el resto del sitio conserva su paleta de siempre. */
+#screen-registro,
+#screen-gracias,
+#screen-registro-invalido {
+  --color-primary: #1a65a3;
+  --color-primary-dark: #02395e;
+  --color-primary-light: #7acbdd;
+  --color-primary-bg: #e8f0f6;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -118,6 +139,12 @@ h1, h2, .brand-name {
 
 .card-wide {
   max-width: 760px;
+}
+
+/* La administración tiene tablas con muchas columnas (colaboradores,
+   instituciones): necesita más ancho que el resto de las pantallas. */
+#screen-admin .card-wide {
+  max-width: 1100px;
 }
 
 @keyframes card-in {
@@ -217,6 +244,12 @@ textarea:focus {
 
 textarea {
   resize: vertical;
+}
+
+input[readonly] {
+  background: var(--color-bg);
+  color: var(--color-subtle);
+  cursor: not-allowed;
 }
 
 .btn-primary,
@@ -603,3 +636,58 @@ textarea {
 
 .detail-row > td { background: #fafafa; padding: 12px 16px; }
 .detail-actions { display: flex; gap: 8px; margin-bottom: 12px; }
+
+/* Registro de colaboradores */
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px 16px;
+  margin-bottom: 8px;
+}
+@media (min-width: 640px) {
+  .field-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .field-full {
+    grid-column: 1 / -1;
+  }
+}
+.field input,
+.field select {
+  margin-bottom: 0;
+}
+.form-section-title {
+  margin: 24px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--color-border);
+}
+.required-note {
+  color: var(--color-subtle);
+  font-size: 0.9rem;
+}
+
+/* Pestañas de administración */
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 16px;
+}
+.admin-tab {
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-card);
+  color: var(--color-text);
+  cursor: pointer;
+  font: inherit;
+}
+.admin-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.admin-filters input[type='search'] {
+  flex: 1;
+  min-width: 180px;
+  margin-bottom: 0;
+}
