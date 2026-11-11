@@ -78,6 +78,7 @@ const Registro = (() => {
 
   const text = (id) => $(id).value.trim();
   const optional = (id) => text(id) || null;
+  const optionalInt = (id) => Number($(id).value) || null;
 
   function buildPayload() {
     return {
@@ -91,12 +92,12 @@ const Registro = (() => {
       area: text('reg-area'),
       institucion_id: institucionId,
       email: text('reg-email'),
-      movil: text('reg-movil'),
+      movil: optional('reg-movil'),
       fijo: optional('reg-fijo'),
-      calle: text('reg-calle'),
-      departamento_id: Number($('reg-departamento').value),
-      municipio_id: Number($('reg-municipio').value),
-      barrio: text('reg-barrio'),
+      calle: optional('reg-calle'),
+      departamento_id: optionalInt('reg-departamento'),
+      municipio_id: optionalInt('reg-municipio'),
+      barrio: optional('reg-barrio'),
       codigo_postal: optional('reg-postal'),
     };
   }
