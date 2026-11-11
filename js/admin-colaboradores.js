@@ -6,6 +6,7 @@ const AdminColaboradores = (() => {
   let rows = [];
   let deptoById = {};
   let muniById = {};
+  let institucionById = {};
 
   // PostgREST devuelve como máximo 1000 filas por consulta: se pagina.
   async function fetchAll() {
@@ -28,16 +29,19 @@ const AdminColaboradores = (() => {
     const countEl = document.getElementById('colab-count');
     countEl.textContent = 'Cargando...';
     try {
-      const [colabs, deptos, munis] = await Promise.all([
+      const [colabs, deptos, munis, instituciones] = await Promise.all([
         fetchAll(),
         window.db.from('hn_departamentos').select('id, nombre'),
         window.db.from('hn_municipios').select('id, nombre'),
+        window.db.from('instituciones').select('id, nombre'),
       ]);
       if (deptos.error) throw deptos.error;
       if (munis.error) throw munis.error;
+      if (instituciones.error) throw instituciones.error;
       rows = colabs;
       deptoById = Object.fromEntries(deptos.data.map((d) => [d.id, d.nombre]));
       muniById = Object.fromEntries(munis.data.map((m) => [m.id, m.nombre]));
+      institucionById = Object.fromEntries(instituciones.data.map((i) => [i.id, i.nombre]));
       render();
     } catch (err) {
       console.error(err);
@@ -48,17 +52,19 @@ const AdminColaboradores = (() => {
   }
 
   function searchText(r) {
-    return [r.apellidos, r.nombres, r.numero_documento, r.email, r.cargo, r.institucion]
+    return [r.apellidos, r.nombres, r.numero_documento, r.email, r.cargo, institucionById[r.institucion_id]]
       .join(' ')
       .toLowerCase();
   }
 
   function render() {
     const q = document.getElementById('colab-search').value.trim().toLowerCase();
+    const institucionId = document.getElementById('colab-filter-institucion').value;
     const tbody = document.getElementById('colab-table-body');
     tbody.textContent = '';
 
-    const filtered = q ? rows.filter((r) => searchText(r).includes(q)) : rows;
+    let filtered = q ? rows.filter((r) => searchText(r).includes(q)) : rows;
+    if (institucionId) filtered = filtered.filter((r) => String(r.institucion_id) === institucionId);
     document.getElementById('colab-count').textContent =
       `${filtered.length} de ${rows.length} colaboradores`;
 
@@ -68,7 +74,7 @@ const AdminColaboradores = (() => {
         `${r.apellidos}, ${r.nombres}`,
         `${r.tipo_documento}: ${r.numero_documento}`,
         r.cargo,
-        r.institucion,
+        institucionById[r.institucion_id] || '—',
         `${r.email} · ${r.movil}`,
         `${muniById[r.municipio_id] || '—'}, ${deptoById[r.departamento_id] || '—'}`,
         new Date(r.created_at).toLocaleDateString('es-HN'),
@@ -103,7 +109,7 @@ const AdminColaboradores = (() => {
       lines.push(
         [
           r.apellidos, r.nombres, r.tipo_documento, r.numero_documento, r.fecha_nacimiento,
-          r.sexo, r.cargo, r.area, r.institucion, r.email, r.movil, r.fijo, r.calle,
+          r.sexo, r.cargo, r.area, institucionById[r.institucion_id], r.email, r.movil, r.fijo, r.calle,
           deptoById[r.departamento_id], muniById[r.municipio_id], r.barrio, r.codigo_postal,
           r.created_at,
         ]
