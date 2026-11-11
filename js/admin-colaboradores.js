@@ -75,7 +75,7 @@ const AdminColaboradores = (() => {
         `${r.tipo_documento}: ${r.numero_documento}`,
         r.cargo,
         institucionById[r.institucion_id] || '—',
-        `${r.email} · ${r.movil}`,
+        `${r.email} · ${r.movil || '—'}`,
         `${muniById[r.municipio_id] || '—'}, ${deptoById[r.departamento_id] || '—'}`,
         new Date(r.created_at).toLocaleDateString('es-HN'),
       ];
@@ -84,8 +84,75 @@ const AdminColaboradores = (() => {
         td.textContent = value; // nunca innerHTML: son datos enviados por terceros
         tr.appendChild(td);
       }
+
+      const tdActions = document.createElement('td');
+      const viewBtn = document.createElement('button');
+      viewBtn.type = 'button';
+      viewBtn.textContent = 'Ver ficha';
+      viewBtn.className = 'btn-secondary';
+      viewBtn.addEventListener('click', () => toggleDetail(r, tr, viewBtn));
+      tdActions.appendChild(viewBtn);
+      tr.appendChild(tdActions);
+
       tbody.appendChild(tr);
     }
+  }
+
+  function toggleDetail(r, tr, btn) {
+    const next = tr.nextElementSibling;
+    if (next && next.classList.contains('detail-row')) {
+      next.remove();
+      btn.textContent = 'Ver ficha';
+      return;
+    }
+    // Cierra cualquier otra ficha abierta: solo una visible a la vez.
+    document.querySelectorAll('#colab-table-body .detail-row').forEach((row) => row.remove());
+    document
+      .querySelectorAll('#colab-table-body .btn-secondary')
+      .forEach((b) => b.textContent === 'Ocultar ficha' && (b.textContent = 'Ver ficha'));
+
+    btn.textContent = 'Ocultar ficha';
+
+    const detailTr = document.createElement('tr');
+    detailTr.className = 'detail-row';
+    const td = document.createElement('td');
+    td.colSpan = 8;
+
+    const fields = [
+      ['Apellidos', r.apellidos],
+      ['Nombres', r.nombres],
+      ['Tipo de documento', r.tipo_documento],
+      ['Número de documento', r.numero_documento],
+      ['Fecha de nacimiento', r.fecha_nacimiento],
+      ['Sexo', r.sexo || '—'],
+      ['Cargo', r.cargo],
+      ['Área', r.area],
+      ['Institución', institucionById[r.institucion_id] || '—'],
+      ['Correo electrónico', r.email],
+      ['Móvil', r.movil || '—'],
+      ['Teléfono fijo', r.fijo || '—'],
+      ['Calle', r.calle || '—'],
+      ['Provincia (departamento)', deptoById[r.departamento_id] || '—'],
+      ['Ciudad (municipio)', muniById[r.municipio_id] || '—'],
+      ['Barrio', r.barrio || '—'],
+      ['Código postal', r.codigo_postal || '—'],
+      ['Registrado', new Date(r.created_at).toLocaleString('es-HN')],
+    ];
+    for (const [label, value] of fields) {
+      const item = document.createElement('div');
+      item.className = 'question';
+      const q = document.createElement('div');
+      q.className = 'question-text';
+      q.textContent = label;
+      const v = document.createElement('div');
+      v.className = 'question-purpose';
+      v.textContent = value; // nunca innerHTML: son datos enviados por terceros
+      item.append(q, v);
+      td.appendChild(item);
+    }
+
+    detailTr.appendChild(td);
+    tr.after(detailTr);
   }
 
   // Los datos vienen de un formulario público: se neutralizan las "fórmulas"
