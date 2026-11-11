@@ -93,6 +93,12 @@
       <button id="admin-logout" class="btn-link">Cerrar sesión</button>
     </div>
 
+    <div class="admin-tabs">
+      <button id="admin-tab-levantamiento" type="button" class="admin-tab active">Levantamiento</button>
+      <button id="admin-tab-colaboradores" type="button" class="admin-tab">Colaboradores</button>
+    </div>
+
+    <div id="admin-panel-levantamiento">
     <div class="admin-filters">
       <select id="admin-filter-role">
         <option value="">Todos los roles</option>
@@ -137,6 +143,29 @@
       <button type="submit" class="btn-primary">Agregar</button>
       <p id="admin-add-error" class="error-text"></p>
     </form>
+    </div>
+
+    <div id="admin-panel-colaboradores" class="hidden">
+      <div class="admin-filters">
+        <input id="colab-search" type="search" placeholder="Buscar por nombre, documento, correo, cargo o institución" />
+        <button id="colab-export-csv" type="button" class="btn-secondary">Exportar CSV</button>
+      </div>
+      <p id="colab-count" class="subtitle"></p>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Documento</th>
+            <th>Cargo</th>
+            <th>Institución</th>
+            <th>Contacto</th>
+            <th>Ubicación</th>
+            <th>Registrado</th>
+          </tr>
+        </thead>
+        <tbody id="colab-table-body"></tbody>
+      </table>
+    </div>
   </div>
 </section>
 
@@ -149,6 +178,7 @@
 <script src="js/auth.js"></script>
 <script src="js/form.js"></script>
 <script src="js/admin.js"></script>
+<script src="js/admin-colaboradores.js"></script>
 <script src="js/router.js"></script>
 </body>
 </html>

@@ -140,6 +140,25 @@ const Router = (() => {
     document.getElementById('admin-filter-location').addEventListener('change', () => AdminScreen.render());
     document.getElementById('admin-export-csv').addEventListener('click', () => AdminScreen.exportCsv());
 
+    const tabLev = document.getElementById('admin-tab-levantamiento');
+    const tabCol = document.getElementById('admin-tab-colaboradores');
+    const panelLev = document.getElementById('admin-panel-levantamiento');
+    const panelCol = document.getElementById('admin-panel-colaboradores');
+    function selectTab(which) {
+      const col = which === 'colaboradores';
+      tabLev.classList.toggle('active', !col);
+      tabCol.classList.toggle('active', col);
+      panelLev.classList.toggle('hidden', col);
+      panelCol.classList.toggle('hidden', !col);
+    }
+    tabLev.addEventListener('click', () => selectTab('levantamiento'));
+    tabCol.addEventListener('click', async () => {
+      selectTab('colaboradores');
+      await AdminColaboradores.load();
+    });
+    document.getElementById('colab-search').addEventListener('input', () => AdminColaboradores.render());
+    document.getElementById('colab-export-csv').addEventListener('click', () => AdminColaboradores.exportCsv());
+
     document.getElementById('admin-add-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const ok = await AdminScreen.addUser({
