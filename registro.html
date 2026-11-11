@@ -68,8 +68,8 @@
           <input id="reg-area" type="text" maxlength="150" required />
         </div>
         <div class="field field-full">
-          <label for="reg-institucion">Institución *</label>
-          <input id="reg-institucion" type="text" maxlength="150" required />
+          <label for="reg-institucion">Institución</label>
+          <input id="reg-institucion" type="text" readonly />
         </div>
         <div class="field field-full">
           <label for="reg-email">Correo electrónico *</label>
@@ -124,6 +124,13 @@
     </div>
     <h1>Registro recibido</h1>
     <p class="subtitle">Gracias, tus datos quedaron registrados. Ya puedes cerrar esta página.</p>
+  </div>
+</section>
+
+<section id="screen-registro-invalido" class="screen hidden">
+  <div class="card">
+    <h1>Enlace inválido</h1>
+    <p class="subtitle">Este enlace de registro no es válido. Contacta al administrador para que te comparta el enlace correcto.</p>
   </div>
 </section>
 

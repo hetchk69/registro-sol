@@ -219,6 +219,12 @@ textarea {
   resize: vertical;
 }
 
+input[readonly] {
+  background: var(--color-bg);
+  color: var(--color-subtle);
+  cursor: not-allowed;
+}
+
 .btn-primary,
 .btn-secondary {
   border-radius: var(--radius-sm);

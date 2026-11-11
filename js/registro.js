@@ -6,6 +6,34 @@
 const Registro = (() => {
   const $ = (id) => document.getElementById(id);
   let municipios = [];
+  let institucionId = null;
+
+  function showInvalidLink() {
+    $('screen-registro').classList.add('hidden');
+    $('screen-registro-invalido').classList.remove('hidden');
+  }
+
+  // Resuelve el slug de ?institucion=<slug> contra el catálogo. Devuelve
+  // false (y muestra la pantalla de enlace inválido) si falta o no existe.
+  async function resolveInstitucion() {
+    const slug = new URLSearchParams(window.location.search).get('institucion');
+    if (!slug) {
+      showInvalidLink();
+      return false;
+    }
+    const { data, error } = await window.db
+      .from('instituciones')
+      .select('id, nombre')
+      .eq('slug', slug)
+      .maybeSingle();
+    if (error || !data) {
+      showInvalidLink();
+      return false;
+    }
+    institucionId = data.id;
+    $('reg-institucion').value = data.nombre;
+    return true;
+  }
 
   function addOption(select, value, text) {
     const opt = document.createElement('option');
@@ -61,7 +89,7 @@ const Registro = (() => {
       sexo: $('reg-sexo').value || null,
       cargo: text('reg-cargo'),
       area: text('reg-area'),
-      institucion: text('reg-institucion'),
+      institucion_id: institucionId,
       email: text('reg-email'),
       movil: text('reg-movil'),
       fijo: optional('reg-fijo'),
@@ -97,6 +125,9 @@ const Registro = (() => {
   }
 
   async function start() {
+    const ok = await resolveInstitucion();
+    if (!ok) return;
+
     $('reg-nacimiento').max = new Date().toISOString().slice(0, 10);
     $('reg-departamento').addEventListener('change', fillMunicipios);
     $('registro-form').addEventListener('submit', submit);
