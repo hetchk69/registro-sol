@@ -603,3 +603,58 @@ textarea {
 
 .detail-row > td { background: #fafafa; padding: 12px 16px; }
 .detail-actions { display: flex; gap: 8px; margin-bottom: 12px; }
+
+/* Registro de colaboradores */
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px 16px;
+  margin-bottom: 8px;
+}
+@media (min-width: 640px) {
+  .field-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .field-full {
+    grid-column: 1 / -1;
+  }
+}
+.field input,
+.field select {
+  margin-bottom: 0;
+}
+.form-section-title {
+  margin: 24px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--color-border);
+}
+.required-note {
+  color: var(--color-subtle);
+  font-size: 0.9rem;
+}
+
+/* Pestañas de administración */
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 16px;
+}
+.admin-tab {
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-card);
+  color: var(--color-text);
+  cursor: pointer;
+  font: inherit;
+}
+.admin-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.admin-filters input[type='search'] {
+  flex: 1;
+  min-width: 180px;
+  margin-bottom: 0;
+}
